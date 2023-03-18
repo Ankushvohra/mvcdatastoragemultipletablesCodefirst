@@ -1,0 +1,110 @@
+﻿@model mvcregister.Models.Register
+@{
+    ViewBag.Title = "Upsert";
+    var title = Model.Id != 0 ? "Edit User" : "New User";
+    var saveupdate = Model.Id != 0 ? "Update" : "Save";
+}
+<div class="alert text-center" role="alert">
+    @title
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="form-group">
+            <div class="text-center">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <br />
+            <div class="text-center">
+                @Html.LabelFor(m => m.Address)
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <br />
+            <div class="text-center">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <fieldset class="form-group text-center">
+            <br />
+            @Html.LabelFor(m => m.Gender)
+            <div class=" form-check">
+                <br />
+                @* <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">*@
+                <label class="form-check-label" for="optionsRadios1">
+                    @Html.RadioButtonFor(m => m.Gender, "Male") Male
+                </label>
+                @*<input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">*@
+                <label class="form-check-label" for="optionsRadios2">
+                    @Html.RadioButtonFor(m => m.Gender, "Female") Female
+                </label>
+                @*<input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">*@
+                <label class="form-check-label" for="optionsRadios2">
+                    @Html.RadioButtonFor(m => m.Gender, "NotPreferToSay") Not Prefer to Say
+                </label>
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <br />
+            <div class="text-center">
+                <br />
+                @Html.LabelFor(m => m.countryid)
+                @Html.DropDownListFor(m => m.countryid, new SelectList(ViewBag.countrylist, "Id", "Name"), "Select Country", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.countryid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <br />
+            <div class="text-center">
+                @Html.LabelFor(m => m.StateId)
+                @Html.DropDownListFor(m => m.StateId, new SelectList(ViewBag.statelist, "Id", "Name"), "Select state", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.StateId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <br />
+            <div class="text-center">
+                @Html.LabelFor(m => m.CityId)
+                @Html.DropDownListFor(m => m.CityId, new SelectList(ViewBag.citylist, "Id", "Name"), "Select city", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-check text-center">
+            <br />
+            <label class="form-check-label" for="flexCheckChecked">
+                @Html.CheckBoxFor(m => m.Subscribe) I accept all the terms and conditions. All Above data is correct.
+            </label>
+        </div>
+    </div>
+    <div class="text-center text-warning">
+        @Html.ValidationMessageFor(m => m.Subscribe, "", new { @class = "error" })
+    </div>
+    <div class="form-group text-center">
+        <button type="Submit" class=" btn btn-info">
+            @saveupdate
+        </button>
+    </div>
+
+}
+<div class="btn btn-success">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        (function ($) {
+            $.validator.unobtrusive.adapters.addBool("checkboxrequired", "required");
+        }(jQuery));
+    </script>
+}
+

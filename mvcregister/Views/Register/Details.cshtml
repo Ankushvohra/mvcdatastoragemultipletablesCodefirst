@@ -1,0 +1,90 @@
+﻿@model mvcregister.Models.Register
+@{
+    ViewBag.Title = "Detail";
+}
+<div class="alert alert-info" role="alert">
+    <h5 class="text-center">DETAILS</h5>
+</div>
+<hr />
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.Name)
+        </th>
+        <th>
+            @Model.Name
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.Address)
+        </th>
+        <th>
+            @Model.Address
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.Email)
+        </th>
+        <th>
+            @Model.Email
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.Gender)
+        </th>
+        <th>
+            @Model.Gender
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.countryid)
+        </th>
+        <th>
+            @Model.City.State.Country.Name
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.StateId)
+        </th>
+        <th>
+            @Model.City.State.Name
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.CityId)
+        </th>
+        <th>
+            @Model.City.Name
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.Subscribe)
+        </th>
+        <th>
+            @if (Model.Subscribe == true)
+            {
+                <h4>Accepted</h4>
+            }
+            else
+            {
+                <h4> Not Accepted</h4>
+            }
+        </th>
+    </tr>
+
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Upsert", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@section scripts{
+    @Scripts.Render("n/bundles/jqueryval")
+}

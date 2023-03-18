@@ -1,0 +1,99 @@
+﻿@model IEnumerable<mvcregister.Models.Register>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="alert text-center" role="alert">
+    REGISTER
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-center">No Data Found</p>
+}
+else
+{
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Country
+                </th>
+                <th>
+                    State
+                </th>
+                <th>
+                    City
+                </th>
+                <th>
+                    Policies
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                using (Html.BeginForm("Delete_new", "Register", new { id = user.Id }))
+                {
+                    <tr>
+                        <td>
+                            @user.Name
+                        </td>
+                        <td>
+                            @user.Address
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            @user.Gender
+                        </td>
+                        <td>
+                            @user.City.State.Country.Name
+                        </td>
+                        <td>
+                            @user.City.State.Name
+                        </td>
+                        <td>
+                            @user.City.Name
+                        </td>
+                        <td>
+                            <input type="checkbox" checked disabled />
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Upsert", new { id = user.Id }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Details", "Details", new { id = user.Id }, new { @class = "btn btn-success" })
+                            <input type="submit" value="Delete" class="btn btn-success" onclick="return confirm('Want to delete Data ?')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+<div class="text-center">
+    @Html.ActionLink("Add User", "Upsert", "Register", new { @class = "btn btn-info" })
+</div>
+@section scripts{
+    @Scripts.Render("n/bundles/jqueryval")
+<script type="text/javascript">
+    (function ($) {
+        $.validator.unobtrusive.adapters.addBool("checkboxrequired", "required");
+    }(jQuery));
+</script>
+}
